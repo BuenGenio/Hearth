@@ -24,8 +24,9 @@ From a room microphone it does three things:
 The repository holds two things:
 
 - `hearth/` — the hub, a Python service run in Docker on a machine with the microphone.
-- `custom_components/hearth/` — a small Home Assistant integration (installable through
-  HACS) that adds actions for searching transcripts and making summaries.
+- `custom_components/hearth/` — a small Home Assistant integration (installable from the
+  Marketplace, or HACS before 2026.11) that adds actions for searching transcripts and
+  making summaries.
 
 ## What it keeps private
 
@@ -138,8 +139,11 @@ segments from a phone and is idempotent on the segment id.
 The integration adds four actions that call the hub's API. It creates no entities:
 those come from MQTT discovery.
 
-1. In HACS, add this repository as a custom repository of type *Integration* and
-   install **Hearth**. Restart Home Assistant.
+1. Home Assistant 2026.11 and later: Settings → Marketplace → **Add from link**, enter
+   `BuenGenio/Hearth`, then open Hearth and select **Install**. Adding a repository by
+   link needs the Marketplace connected to a GitHub account. On older versions, add
+   this repository to HACS as a custom repository of type *Integration* and install it.
+   Restart Home Assistant.
 2. Settings → Devices & services → Add integration → Hearth. Enter the hub's URL
    (an address Home Assistant can reach, port 8377) and one of the API tokens.
 
@@ -185,7 +189,8 @@ sh tools/fetch_models.sh models       # checksummed; tests that need models skip
 - 57 hub tests, including the privacy properties above; each of seven deliberate
   breakages of those properties made a test fail.
 - 58 integration tests on Home Assistant 2026.10, plus a live run on 2026.11.
-  `hassfest` and the HACS validation action have not been run.
+  `hassfest` passes in GitHub Actions. The HACS validation action passes every check
+  except the licence, which the repository does not have yet.
 - Guard on public recordings: glass break 3 of 3, sirens 3 of 3, alarm clocks 2 of 3,
   baby crying 1 of 3, and no event on 11 recordings of knocking, vacuuming and speech.
   No real smoke-alarm recording was tested.
