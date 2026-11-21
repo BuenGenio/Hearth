@@ -1,0 +1,16 @@
+{
+  "services": {
+    "get_transcript": {
+      "service": "mdi:script-text-outline"
+    },
+    "latest_summary": {
+      "service": "mdi:text-box-check-outline"
+    },
+    "search": {
+      "service": "mdi:text-box-search-outline"
+    },
+    "summarise": {
+      "service": "mdi:creation"
+    }
+  }
+}

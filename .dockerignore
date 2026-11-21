@@ -1,0 +1,9 @@
+.venv*
+.git
+/models
+/data
+tests
+tests_ha
+custom_components
+**/__pycache__
+*.egg-info

@@ -1,0 +1,53 @@
+# Hearth configuration. Everything here is optional: a setting you leave out
+# keeps its default (see hearth/config.py for the full list). Secrets are never
+# written here; settings ending in _env name an environment variable.
+
+[audio]
+source = "alsa"                       # alsa | file | none
+device = "hw:CARD=Receiver,DEV=0"     # by card id: see `arecord -L`, never hw:0
+rate = 48000
+channels = 1
+
+[storage]
+store_audio = false                   # keep raw audio next to each transcript
+restore_recording = true              # false: always start with recording OFF
+transcript_retention_days = 0         # 0 = keep
+audio_retention_days = 0
+
+# Wake phrases are plain text. English only with the bundled model.
+[[wake.phrases]]
+text = "hearth start recording"
+action = "recording_on"
+[[wake.phrases]]
+text = "hearth stop recording"
+action = "recording_off"
+
+[stt]
+order = ["localai", "openai"]         # tried in order; a backend without a key is skipped
+
+[stt.backends.localai]
+base_url = "http://gpu-box.local:8080/v1"
+model = "whisper-large-turbo-q5_0"
+api_key_env = "LOCALAI_API_KEY"
+
+[mqtt]
+host = "127.0.0.1"                    # the broker Home Assistant uses
+port = 1883
+username = "hearth"
+password_env = "HEARTH_MQTT_PASSWORD"
+
+[summary]
+hourly = true
+nightly_at = "23:30"
+timezone = "Europe/London"
+llm = ["localai"]                     # tried in order: localai | anthropic | opusos
+
+[llm.localai]
+kind = "openai"
+base_url = "http://gpu-box.local:8080/v1"
+model = "qwen3-4b"
+api_key_env = "LOCALAI_API_KEY"
+
+[api]
+hosts = ["127.0.0.1"]                 # add the tailnet address for phones
+port = 8377

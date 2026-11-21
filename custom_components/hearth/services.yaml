@@ -1,0 +1,73 @@
+search:
+  fields:
+    query:
+      required: true
+      example: "dentist appointment"
+      selector:
+        text:
+    limit:
+      default: 20
+      selector:
+        number:
+          min: 1
+          max: 500
+          mode: box
+    config_entry_id:
+      selector:
+        config_entry:
+          integration: hearth
+
+get_transcript:
+  fields:
+    start:
+      required: true
+      example: "2026-11-21 08:00:00"
+      selector:
+        datetime:
+    end:
+      example: "2026-11-21 09:00:00"
+      selector:
+        datetime:
+    limit:
+      default: 1000
+      selector:
+        number:
+          min: 1
+          max: 10000
+          mode: box
+    config_entry_id:
+      selector:
+        config_entry:
+          integration: hearth
+
+summarise:
+  fields:
+    hours:
+      default: 1
+      selector:
+        number:
+          min: 0.25
+          max: 72
+          step: 0.25
+          mode: box
+          unit_of_measurement: h
+    kind:
+      default: manual
+      example: manual
+      selector:
+        text:
+    config_entry_id:
+      selector:
+        config_entry:
+          integration: hearth
+
+latest_summary:
+  fields:
+    kind:
+      example: daily
+      selector:
+        text:
+    config_entry_id:
+      selector:
+        config_entry:
+          integration: hearth

@@ -1,0 +1,128 @@
+{
+  "config": {
+    "abort": {
+      "already_configured": "This Hearth hub is already configured.",
+      "reauth_successful": "The new API token works and has been saved."
+    },
+    "error": {
+      "cannot_connect": "Could not reach a Hearth hub at this address.",
+      "invalid_auth": "The hub rejected this API token.",
+      "invalid_url": "Enter a full address that starts with http or https.",
+      "unknown": "Unexpected error. The Home Assistant log has the details."
+    },
+    "step": {
+      "reauth_confirm": {
+        "data": {
+          "api_token": "API token"
+        },
+        "data_description": {
+          "api_token": "A token from the hub's token list, without the device name in front."
+        },
+        "description": "The Hearth hub at {url} no longer accepts the saved API token.",
+        "title": "Enter a new API token"
+      },
+      "user": {
+        "data": {
+          "api_token": "API token",
+          "url": "Hub address"
+        },
+        "data_description": {
+          "api_token": "A token from the hub's token list, without the device name in front.",
+          "url": "Base address of the hub's HTTP API, including the port."
+        },
+        "description": "Connect to a Hearth hub to search transcripts and request summaries from automations. The hub's switches and sensors keep coming through MQTT; this adds no entities."
+      }
+    }
+  },
+  "exceptions": {
+    "api_error": {
+      "message": "The Hearth hub answered with an error (HTTP {status}): {detail}"
+    },
+    "auth_failed": {
+      "message": "The Hearth hub rejected the API token saved for {title}. Enter a new token under Settings > Devices & services."
+    },
+    "cannot_connect": {
+      "message": "Could not reach the Hearth hub at {url}: {error}"
+    },
+    "end_before_start": {
+      "message": "The end of the time range must be after its start."
+    },
+    "request_rejected": {
+      "message": "The Hearth hub rejected the request: {detail}"
+    }
+  },
+  "services": {
+    "get_transcript": {
+      "description": "Returns what was transcribed in a time range, oldest first.",
+      "fields": {
+        "config_entry_id": {
+          "description": "The hub to ask. Only needed when more than one Hearth hub is set up.",
+          "name": "Hearth hub"
+        },
+        "end": {
+          "description": "End of the time range. Leave empty for now.",
+          "name": "End"
+        },
+        "limit": {
+          "description": "Maximum number of segments to return.",
+          "name": "Limit"
+        },
+        "start": {
+          "description": "Start of the time range.",
+          "name": "Start"
+        }
+      },
+      "name": "Get transcript"
+    },
+    "latest_summary": {
+      "description": "Returns the most recent summary the hub has stored.",
+      "fields": {
+        "config_entry_id": {
+          "description": "The hub to ask. Only needed when more than one Hearth hub is set up.",
+          "name": "Hearth hub"
+        },
+        "kind": {
+          "description": "Only consider summaries of this kind, for example daily. Leave empty for any kind.",
+          "name": "Kind"
+        }
+      },
+      "name": "Get latest summary"
+    },
+    "search": {
+      "description": "Searches the transcripts for words and returns the matching segments, newest first.",
+      "fields": {
+        "config_entry_id": {
+          "description": "The hub to ask. Only needed when more than one Hearth hub is set up.",
+          "name": "Hearth hub"
+        },
+        "limit": {
+          "description": "Maximum number of segments to return.",
+          "name": "Limit"
+        },
+        "query": {
+          "description": "Words to look for. A segment matches when it contains all of them.",
+          "name": "Query"
+        }
+      },
+      "name": "Search transcripts"
+    },
+    "summarise": {
+      "description": "Asks the hub to summarise the last hours now and returns the summary. This can take a few minutes.",
+      "fields": {
+        "config_entry_id": {
+          "description": "The hub to ask. Only needed when more than one Hearth hub is set up.",
+          "name": "Hearth hub"
+        },
+        "hours": {
+          "description": "How far back to summarise, counted from now.",
+          "name": "Hours"
+        },
+        "kind": {
+          "description": "Label stored with the summary.",
+          "name": "Kind"
+        }
+      },
+      "name": "Summarise now"
+    }
+  }
+}
